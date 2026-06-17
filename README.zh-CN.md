@@ -29,7 +29,7 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 🔍 **为 AI 获取数据而设计的的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试中排名第一（综合得分 0.907）。针对复杂页面提供确定性的本地模式和 AI hybrid mode。
 
-- **它有多准确？** — 基准测试中排名第一：在 200 份现实场景中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是确定性本地模式，复杂页面用的是 AI hybrid 模式（[基准测试](#extraction-benchmarks)）
+- **它有多准确？** — 基准测试中排名第一：在 200 份现实场景中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是确定性本地模式，复杂页面用的是 AI hybrid 模式（[benchmarks](#extraction-benchmarks)）
 - **支持扫描 PDF 和 OCR 吗？** — 支持。hybrid 模式内置 OCR（支持超过 80 种语言）。可处理 300 DPI+ 的低质量扫描件（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
 - **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片/图表描述都可通过 hybrid mode 处理（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
 - **如何把它用于 RAG？** — `pip install opendataloader-pdf`，3 行代码完成转换。输出适合 chunking 的结构化 Markdown、用于来源引用且带 bounding boxes 的 JSON，以及 HTML。提供 LangChain 集成。支持 Python、Node.js、Java SDK（[快速开始](#get-started-in-30-seconds) | [LangChain](#langchain-integration)）
