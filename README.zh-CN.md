@@ -15,7 +15,7 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 # OpenDataLoader PDF
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+[English](README.md)
 
 **为 AI 准备现成数据的 PDF 解析器。把 PDF 变得让 AI 易于接近这项工作自动化。开源。**
 
