@@ -17,7 +17,7 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-**面向 AI 就绪数据的 PDF 解析器。自动化 PDF 无障碍处理。开源。**
+**为 AI 准备现成数据的 PDF 解析器。把 PDF 变得让 AI 易于接近这项工作自动化。开源。**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/opendataloader-project/opendataloader-pdf/blob/main/LICENSE)
 [![PyPI version](https://img.shields.io/pypi/v/opendataloader-pdf.svg)](https://pypi.org/project/opendataloader-pdf/)
@@ -27,10 +27,10 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 <a href="https://trendshift.io/repositories/21917" target="_blank"><img src="https://trendshift.io/api/badge/repositories/21917" alt="opendataloader-project%2Fopendataloader-pdf | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-🔍 **用于 AI 数据抽取的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试排名第一（综合 0.907）。针对复杂页面提供确定性的本地模式和 AI hybrid mode。
+🔍 **为 AI 获取数据而设计的的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试中排名第一（综合得分 0.907）。针对复杂页面提供确定性的本地模式和 AI hybrid mode。
 
-- **准确率如何？** — 基准测试排名第一：在 200 份真实 PDF 上综合得分 0.907、表格准确率 0.928，覆盖多栏排版和科研论文。针对复杂页面提供确定性本地模式和 AI hybrid mode（[基准测试](#extraction-benchmarks)）
-- **支持扫描 PDF 和 OCR 吗？** — 支持。hybrid mode 内置 OCR（80+ 语言）。可处理 300 DPI+ 的低质量扫描件（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
+- **它有多准确？** — 基准测试中排名第一：在 200 份现实场景中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是确定性本地模式，复杂页面用的是 AI hybrid 模式（[基准测试](#extraction-benchmarks)）
+- **支持扫描 PDF 和 OCR 吗？** — 支持。hybrid 模式内置 OCR（支持超过 80 种语言）。可处理 300 DPI+ 的低质量扫描件（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
 - **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片/图表描述都可通过 hybrid mode 处理（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
 - **如何把它用于 RAG？** — `pip install opendataloader-pdf`，3 行代码完成转换。输出适合 chunking 的结构化 Markdown、用于来源引用且带 bounding boxes 的 JSON，以及 HTML。提供 LangChain 集成。支持 Python、Node.js、Java SDK（[快速开始](#get-started-in-30-seconds) | [LangChain](#langchain-integration)）
 
