@@ -17,7 +17,7 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 [English](README.md)
 
-**为 AI 准备现成数据的 PDF 解析器。把 PDF 变得让 AI 易于接近这项工作自动化。开源。**
+**为 AI 准备现成数据的 PDF 解析器。把 PDF 变得易于让 AI 阅读这项工作自动化。开源。**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/opendataloader-project/opendataloader-pdf/blob/main/LICENSE)
 [![PyPI version](https://img.shields.io/pypi/v/opendataloader-pdf.svg)](https://pypi.org/project/opendataloader-pdf/)
