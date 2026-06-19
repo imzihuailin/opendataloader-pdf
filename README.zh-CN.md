@@ -17,7 +17,7 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 [English](README.md)
 
-**提供 AI 易读数据的 PDF 解析器。把 PDF 变得易于残障人士阅读这项工作自动化。开源。**
+**提供 AI 易读数据的 PDF 解析器。把 PDF 变得易于让残障人士阅读这项工作自动化。开源。**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/opendataloader-project/opendataloader-pdf/blob/main/LICENSE)
 [![PyPI version](https://img.shields.io/pypi/v/opendataloader-pdf.svg)](https://pypi.org/project/opendataloader-pdf/)
@@ -37,13 +37,13 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 ♿ **PDF 无障碍处理自动化** — 自动将未被标记的 PDF 批量标记为可供屏幕阅读器使用的 Tagged PDF。首个端到端生成 Tagged PDF 的开源工具。
 
 - **现实的痛点是什么？** — 全球都开始推进无障碍法规的落实。手工将一份 PDF 无障碍化的成本为 50-200 美元，且无法规模化（[法规](#pdf-accessibility--pdfua-conversion)）
-- **哪些是免费的？** — 布局分析 + 自动标记（Apache 2.0）。输入未标记的 PDF  → 输出已标记的 PDF 。无专有 SDK 依赖（[自动标记](#auto-tagging)）
-- **如何实现 PDF/UA 合规？** — 将 Tagged PDF 转换为 PDF/UA-1 或 PDF/UA-2 是企业附加功能。自动标记会生成已标记的 PDF；PDF/UA export 是最后一步（[流程](#accessibility-pipeline)）
-- **为什么相信我们？** — 🔥🔥🔥与 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 开发者）协作构建，基于 [PDF Association](https://pdfa.org) 规范、最佳实践指南，以及 [PDF Community](https://pdfa.org/community/) 的专业知识。自动加标签遵循 [Well-Tagged PDF specification](https://pdfa.org/wtpdf/)，并用 veraPDF 验证（[协作说明](https://opendataloader.org/docs/tagged-pdf-collaboration)）
+- **哪些是免费的？** — 布局分析 + 自动标记功能（Apache 2.0）。输入未标记的 PDF  → 输出已标记的 PDF 。无专有 SDK 依赖（[自动标记](#auto-tagging)）
+- **如何实现 PDF/UA 合规？** — 将 Tagged PDF 转换为 PDF/UA-1 或 PDF/UA-2 是企业附加功能。自动标记功能会生成已标记的 PDF；PDF/UA export 是最后一步（[流程](#accessibility-pipeline)）
+- **为什么信任我们？** — 与 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 的开发团队）协作构建，基于 [PDF Association](https://pdfa.org) 规范、最佳实践指南，以及 [PDF Community](https://pdfa.org/community/) 的专业经验和知识。自动标记功能遵循 [Well-Tagged PDF specification](https://pdfa.org/wtpdf/)，并用 veraPDF 验证（[协作说明](https://opendataloader.org/docs/tagged-pdf-collaboration)）
 
-## Get Started in 30 Seconds
+## 快速开始
 
-**要求**：Java 11+ 和 Python 3.10+（也可使用 [Node.js](https://opendataloader.org/docs/quick-start-nodejs) | [Java](https://opendataloader.org/docs/quick-start-java)）
+**环境要求**：Java 11+ 和 Python 3.10+（也可使用 [Node.js](https://opendataloader.org/docs/quick-start-nodejs) | [Java](https://opendataloader.org/docs/quick-start-java)）
 
 > 开始前：运行 `java -version`。如果找不到 Java，请从 [Adoptium](https://adoptium.net/) 安装 JDK 11+。
 
@@ -64,7 +64,7 @@ opendataloader_pdf.convert(
 
 ![OpenDataLoader PDF layout analysis — headings, tables, images detected with bounding boxes](https://raw.githubusercontent.com/opendataloader-project/opendataloader-pdf/main/samples/image/example_annotated_pdf.png)
 
-*Annotated PDF 输出 — 每个元素（heading、paragraph、table、image）都会被检测出 bounding boxes 和语义类型。*
+🔥🔥🔥*Annotated PDF 输出 — 每个元素（heading、paragraph、table、image）都会被检测出 bounding boxes 和语义类型。*
 
 ## What Problems Does This Solve?
 
