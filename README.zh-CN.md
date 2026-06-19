@@ -17,7 +17,7 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 [English](README.md)
 
-**提供 AI 易读数据的 PDF 解析器。把 PDF 变得易于让 AI 阅读这项工作自动化。开源。**
+**提供 AI 易读数据的 PDF 解析器。把 PDF 变得易于残障人士阅读这项工作自动化。开源。**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/opendataloader-project/opendataloader-pdf/blob/main/LICENSE)
 [![PyPI version](https://img.shields.io/pypi/v/opendataloader-pdf.svg)](https://pypi.org/project/opendataloader-pdf/)
@@ -27,19 +27,19 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 <a href="https://trendshift.io/repositories/21917" target="_blank"><img src="https://trendshift.io/api/badge/repositories/21917" alt="opendataloader-project%2Fopendataloader-pdf | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-🔍 **为 AI 获取数据而设计的的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试中排名第一（综合得分 0.907）。针对复杂页面提供确定性的本地模式和 AI hybrid mode。
+🔍 **为 AI 获取数据而设计的的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试中排名第一（综合得分 0.907）。针对复杂页面提供确定性的本地模式和 AI 混合模式。
 
-- **它有多准确？** — 基准测试中排名第一：在 200 份现实场景中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是确定性本地模式，复杂页面用的是 AI hybrid 模式（[benchmarks](#extraction-benchmarks)）
-- **支持扫描 PDF 和 OCR 吗？** — 支持。hybrid 模式内置 OCR（支持超过 80 种语言）。🔥上次在这🔥可处理 300 DPI+ 的低质量扫描件（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
-- **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片/图表描述都可通过 hybrid mode 处理（[hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
-- **如何把它用于 RAG？** — `pip install opendataloader-pdf`，3 行代码完成转换。输出适合 chunking 的结构化 Markdown、用于来源引用且带 bounding boxes 的 JSON，以及 HTML。提供 LangChain 集成。支持 Python、Node.js、Java SDK（[快速开始](#get-started-in-30-seconds) | [LangChain](#langchain-integration)）
+- **它有多准确？** — 基准测试中排名第一：在 200 份现实场景中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是确定性本地模式，复杂页面用的是 AI 混合模式（[基准](#extraction-benchmarks)）
+- **支持扫描 PDF 和 OCR 吗？** — 支持。AI 混合模式内置 OCR（支持超过 80 种语言）。可处理 300 DPI 以上的低质量扫描件（[AI 混合模式] (#hybrid-mode-1-accuracy-for-complex-pdfs)）
+- **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片或图表描述都可通过 hybrid mode 处理（[AI 混合模式](#hybrid-mode-1-accuracy-for-complex-pdfs)）
+- **如何把它用于 RAG？** — `pip install opendataloader-pdf`，用 3 行代码就可以完成转换。输出适合文本切块（chunking）的结构化 Markdown、带边界框的 JSON（用于引用来源），以及 HTML。支持 LangChain 集成。支持 Python、Node.js、Java SDK（[快速开始](#get-started-in-30-seconds) | [LangChain](#langchain-integration)）
 
-♿ **PDF 无障碍自动化** — 将未加标签的 PDF 批量自动标记为可供屏幕阅读器使用的 Tagged PDF。首个端到端生成 Tagged PDF 的开源工具。
+♿ **PDF 无障碍处理自动化** — 自动将未被标记的 PDF 批量标记为可供屏幕阅读器使用的 Tagged PDF。首个端到端生成 Tagged PDF 的开源工具。
 
-- **问题是什么？** — 无障碍法规已在全球范围执行。人工 PDF 修复每份文档成本为 50-200 美元，且无法规模化（[法规](#pdf-accessibility--pdfua-conversion)）
-- **免费部分是什么？** — 布局分析 + 自动加标签（Apache 2.0）。未加标签 PDF 输入 → Tagged PDF 输出。无专有 SDK 依赖（[auto-tagging](#auto-tagging)）
-- **PDF/UA 合规怎么办？** — 将 Tagged PDF 转换为 PDF/UA-1 或 PDF/UA-2 是企业附加功能。自动加标签会生成 Tagged PDF；PDF/UA export 是最后一步（[pipeline](#accessibility-pipeline)）
-- **为什么可信？** — 与 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 开发者）协作构建，基于 [PDF Association](https://pdfa.org) 规范、最佳实践指南，以及 [PDF Community](https://pdfa.org/community/) 的专业知识。自动加标签遵循 [Well-Tagged PDF specification](https://pdfa.org/wtpdf/)，并用 veraPDF 验证（[协作说明](https://opendataloader.org/docs/tagged-pdf-collaboration)）
+- **现实的痛点是什么？** — 全球都开始推进无障碍法规的落实。手工将一份 PDF 无障碍化的成本为 50-200 美元，且无法规模化（[法规](#pdf-accessibility--pdfua-conversion)）
+- **哪些是免费的？** — 布局分析 + 自动标记（Apache 2.0）。输入未标记的 PDF  → 输出已标记的 PDF 。无专有 SDK 依赖（[自动标记](#auto-tagging)）
+- **如何实现 PDF/UA 合规？** — 将 Tagged PDF 转换为 PDF/UA-1 或 PDF/UA-2 是企业附加功能。自动标记会生成已标记的 PDF；PDF/UA export 是最后一步（[流程](#accessibility-pipeline)）
+- **为什么相信我们？** — 🔥🔥🔥与 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 开发者）协作构建，基于 [PDF Association](https://pdfa.org) 规范、最佳实践指南，以及 [PDF Community](https://pdfa.org/community/) 的专业知识。自动加标签遵循 [Well-Tagged PDF specification](https://pdfa.org/wtpdf/)，并用 veraPDF 验证（[协作说明](https://opendataloader.org/docs/tagged-pdf-collaboration)）
 
 ## Get Started in 30 Seconds
 
