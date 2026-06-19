@@ -54,7 +54,7 @@ pip install -U opendataloader-pdf
 ```python
 import opendataloader_pdf
 
-# Batch all files in one call — each convert() spawns a JVM process, so repeated calls are slow
+# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -64,14 +64,14 @@ opendataloader_pdf.convert(
 
 ![OpenDataLoader PDF layout analysis — headings, tables, images detected with bounding boxes](https://raw.githubusercontent.com/opendataloader-project/opendataloader-pdf/main/samples/image/example_annotated_pdf.png)
 
-🔥🔥🔥*Annotated PDF 输出 — 每个元素（heading、paragraph、table、image）都会被检测出 bounding boxes 和语义类型。*
+*带标注信息的 PDF 输出 — 探测到每个元素（heading、paragraph、table、image）并为它们标注边界框和语义类型。*
 
-## What Problems Does This Solve?
+## 这个项目解决了哪些问题？
 
 | 问题 | 解决方案 | 状态 |
 |---------|----------|--------|
-| **PDF 解析时结构丢失** — 阅读顺序错误、表格破碎、没有元素坐标 | 确定性的本地 PDF 到 Markdown/JSON 转换，带 bounding boxes 和 XY-Cut++ reading order | 已发布 |
-| **复杂表格、扫描 PDF、公式、图表** 需要 AI 级理解 | Hybrid mode 将复杂页面路由到 AI backend（基准测试第一） | 已发布 |
+| **PDF 解析时结构被破坏** — 阅读顺序错误、表格结构损坏、缺少元素位置坐标 | 将确定性的本地 PDF 转换为 带边界框的 Markdown/JSON ，基于 XY-Cut++ 算法确定阅读顺序  | 已发布 |
+| 🔥🔥🔥**复杂表格、扫描 PDF、公式、图表** 需要 AI 级理解 | Hybrid mode 将复杂页面路由到 AI backend（基准测试第一） | 已发布 |
 | **人工 PDF 修复成本高** — 无障碍法规（EAA、ADA、Section 508）要求 Tagged PDF。人工修复成本为 50-200 美元/文档 | 将未加标签 PDF 自动加标签为 Tagged PDF（免费，Apache 2.0）。作为 PDF/UA 工作流基础；完整 PDF/UA-1/2 export 是企业附加功能 | Auto-tag：已发布。PDF/UA export：企业版 |
 
 ## Capability Matrix
