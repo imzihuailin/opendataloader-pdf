@@ -27,17 +27,17 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 <a href="https://trendshift.io/repositories/21917" target="_blank"><img src="https://trendshift.io/api/badge/repositories/21917" alt="opendataloader-project%2Fopendataloader-pdf | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-🔍 **为 AI 获取数据而设计的的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试中排名第一（综合得分 0.907）。针对复杂页面提供确定性的本地模式和 AI 混合模式。
+🔍 **为 AI 获取数据而设计的的 PDF 解析器** — 从任意 PDF 中提取 Markdown、JSON（带 bounding boxes）和 HTML。基准测试中排名第一（综合得分 0.907）。针对复杂页面提供 Deterministic local mode 和 AI hybrid mode 。
 
-- **它有多准确？** — 基准测试中排名第一：在 200 份现实场景中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是确定性本地模式，复杂页面用的是 AI 混合模式（[基准](#extraction-benchmarks)）
-- **支持扫描 PDF 和 OCR 吗？** — 支持。AI 混合模式内置 OCR（支持超过 80 种语言）。可处理 300 DPI 以上的低质量扫描件（[AI 混合模式] (#hybrid-mode-1-accuracy-for-complex-pdfs)）
-- **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片或图表描述都可通过 hybrid mode 处理（[AI 混合模式](#hybrid-mode-1-accuracy-for-complex-pdfs)）
+- **它有多准确？** — 基准测试中排名第一：在 200 份现实中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、解析表格的准确率有 0.928。普通页面用的是 Deterministic local mode ，复杂页面用的是 AI hybrid mode（[benchmarks](#extraction-benchmarks)）
+- **支持扫描 PDF 和 OCR 吗？** — 支持。AI hybrid mode 内置 OCR（支持超过 80 种语言）。可处理 300 DPI 以上的低质量扫描件（[AI hybrid mode] (#hybrid-mode-1-accuracy-for-complex-pdfs)）
+- **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片或图表描述都可通过 hybrid mode 处理（[AI hybrid mode](#hybrid-mode-1-accuracy-for-complex-pdfs)）
 - **如何把它用于 RAG？** — `pip install opendataloader-pdf`，用 3 行代码就可以完成转换。输出适合文本切块（chunking）的结构化 Markdown、带边界框的 JSON（用于引用来源），以及 HTML。支持 LangChain 集成。支持 Python、Node.js、Java SDK（[快速开始](#get-started-in-30-seconds) | [LangChain](#langchain-integration)）
 
-♿ **PDF 无障碍处理自动化** — 自动将未被标记的 PDF 批量标记为可供屏幕阅读器使用的 Tagged PDF。首个端到端生成 Tagged PDF 的开源工具。
+♿ **PDF 无障碍处理自动化** — 自动将 untagged PDFs 批量标记为可供屏幕阅读器使用的 Tagged PDFs。首个端到端生成 Tagged PDFs 的开源工具。
 
-- **现实的痛点是什么？** — 全球都开始推进无障碍法规的落实。手工将一份 PDF 无障碍化的成本为 50-200 美元，且无法规模化（[法规](#pdf-accessibility--pdfua-conversion)）
-- **哪些是免费的？** — 布局分析 + 自动标记功能（Apache 2.0）。输入未标记的 PDF  → 输出已标记的 PDF 。无专有 SDK 依赖（[自动标记](#auto-tagging)）
+- **痛点是什么？** — 全球都开始推进无障碍法规的落实。手工将一份 PDF 无障碍化的成本为 50-200 美元，且无法规模化（[法规](#pdf-accessibility--pdfua-conversion)）
+- **哪些是免费的？** — 布局分析 + 自动标记功能（Apache 2.0）。输入 untagged PDF  → 输出已标 Tagged PDF 。无专有 SDK 依赖（[自动标记](#auto-tagging)）
 - **如何实现 PDF/UA 合规？** — 将 Tagged PDF 转换为 PDF/UA-1 或 PDF/UA-2 是企业附加功能。自动标记功能会生成已标记的 PDF；PDF/UA export 是最后一步（[流程](#accessibility-pipeline)）
 - **为什么信任我们？** — 与 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 的开发团队）协作构建，基于 [PDF Association](https://pdfa.org) 规范、最佳实践指南，以及 [PDF Community](https://pdfa.org/community/) 的专业经验和知识。自动标记功能遵循 [Well-Tagged PDF specification](https://pdfa.org/wtpdf/)，并用 veraPDF 验证（[协作说明](https://opendataloader.org/docs/tagged-pdf-collaboration)）
 
@@ -71,40 +71,40 @@ opendataloader_pdf.convert(
 | 问题 | 解决方案 | 状态 |
 |---------|----------|--------|
 | **PDF 解析时结构被破坏** — 阅读顺序错误、表格结构损坏、缺少元素位置坐标 | 将确定性的本地 PDF 转换为 带边界框的 Markdown/JSON ，基于 XY-Cut++ 算法确定阅读顺序  | 已发布 |
-| 🔥🔥🔥**复杂表格、扫描 PDF、公式、图表** 需要 AI 级理解 | Hybrid mode 将复杂页面路由到 AI backend（基准测试第一） | 已发布 |
-| **人工 PDF 修复成本高** — 无障碍法规（EAA、ADA、Section 508）要求 Tagged PDF。人工修复成本为 50-200 美元/文档 | 将未加标签 PDF 自动加标签为 Tagged PDF（免费，Apache 2.0）。作为 PDF/UA 工作流基础；完整 PDF/UA-1/2 export 是企业附加功能 | Auto-tag：已发布。PDF/UA export：企业版 |
+| **需要 AI 级理解的复杂表格、扫描 PDF、公式、图表**| AI 混合模式将复杂页面路由到 AI 后端（基准测试排名第一） | 已发布 |
+| **人工 PDF 无障碍化成本高** — 无障碍法规（EAA、ADA、Section 508）要求 Tagged PDF。人工无障碍化成本为每个文档 50-200 美元 | 自动将未标记的 PDF 标记为 Tagged PDF（免费，Apache 2.0）。作为 PDF/UA 工作流的基础；完整 PDF/UA-1/2 导出是企业附加功能 | Auto-tag：已发布。PDF/UA export：企业版 |
 
-## Capability Matrix
+## 能力范围
 
 | 能力 | 支持情况 | 层级 |
 |------------|-----------|------|
 | **数据抽取** | | |
-| 按正确阅读顺序抽取文本 | Yes | Free |
-| 每个元素都有 bounding boxes | Yes | Free |
-| 表格抽取（简单边框） | Yes | Free |
-| 表格抽取（复杂/无边框） | Yes | Free (Hybrid) |
-| 标题层级检测 | Yes | Free |
-| 列表检测（编号、项目符号、嵌套） | Yes | Free |
-| 带坐标的图片抽取 | Yes | Free |
-| AI 图表/图片描述 | Yes | Free (Hybrid) |
-| 扫描 PDF 的 OCR | Yes | Free (Hybrid) |
-| 公式抽取（LaTeX） | Yes | Free (Hybrid) |
-| Tagged PDF 结构抽取 | Yes | Free |
-| AI 安全（prompt injection 过滤） | Yes | Free |
-| 页眉/页脚/水印过滤 | Yes | Free |
+| 按正确阅读顺序提取文本 | 支持 | 免费 |
+| 每个元素都有边界框 | 支持 | 免费 |
+| 表格抽取（简单边框） | 支持 | 免费 |
+| 表格抽取（复杂/无边框） | 支持 | 免费（混合模式） |
+| 标题层级检测 | 支持 | 免费 |
+| 列表检测（序号、项目符号、嵌套） | 支持 | 免费 |
+| 带坐标的图片提取 | 支持 | 免费 |
+| AI 图表/图片描述 | 支持 | 免费（混合模式） |
+| 扫描 PDF 的 OCR | 支持 | 免费（混合模式） |
+| 公式提取（LaTeX） | 支持 | 免费（混合模式 |
+| Tagged PDF 结构提取 | 支持 | 免费 |
+| AI 安全（提示词注入过滤） | 支持 | 免费 |
+| 页眉/页脚/水印过滤 | 支持 | 免费 |
 | **无障碍** | | |
-| Auto-tagging → 将未加标签 PDF 转为 Tagged PDF | Yes | Free (Apache 2.0) |
-| PDF/UA-1、PDF/UA-2 export | 💼 Available | Enterprise |
-| Accessibility studio（可视化编辑器） | 💼 Available | Enterprise |
-| **限制** | | |
-| 处理 Word/Excel/PPT | No | — |
-| 需要 GPU | No | — |
+| 自动标记 → 将未加标签 PDF 转为 Tagged PDF | 支持 | 免费 (Apache 2.0) |
+| PDF/UA-1、PDF/UA-2 导出 | 💼 可用 | 企业版 |
+| Accessibility studio（可视化编辑器） | 💼 可用 | 企业版 |
+| **局限** | | |
+| 处理 Word/Excel/PPT | 不支持 | — |
+| 是否需要 GPU | 否 | — |
 
-## Extraction Benchmarks
+## 测量提取能力的基准
 
-**opendataloader-pdf [hybrid] 在阅读顺序、表格和标题抽取准确率上综合排名第一（0.907）。**
+**opendataloader-pdf [hybrid] 在阅读顺序、表格和标题提取准确率上综合排名第一（0.907）。**
 
-| Engine | Overall | Reading Order | Table | Heading | Speed (s/page) | License |
+| 引擎 | 综合得分 | 阅读顺序 | 表格 | 标题 | 速度（秒/页） | 许可证 |
 |--------|---------|---------------|-------|---------|----------------|---------|
 | **opendataloader [hybrid]** | **0.907** | **0.934** | **0.928** | 0.821 | 0.463 | Apache-2.0 |
 | nutrient | 0.885 | 0.925 | 0.708 | 0.819 | **0.008** | Commercial |
@@ -119,17 +119,17 @@ opendataloader_pdf.convert(
 | markitdown | 0.589 | 0.844 | 0.273 | 0.000 | 0.114 | MIT |
 | liteparse | 0.576 | 0.866 | 0.000 | 0.000 | 1.061 | Apache-2.0 |
 
-> 分数归一化到 [0, 1]。准确率越高越好；速度越低越好。**粗体** = 最佳。[完整基准测试详情](https://github.com/opendataloader-project/opendataloader-bench)
+> 下图将分数换算成 0-1 范围内。准确率越高越好；速度越快越好。**加粗** = 最佳。[完整基准测试详情](https://github.com/opendataloader-project/opendataloader-bench)
 
 [![Benchmark](https://github.com/opendataloader-project/opendataloader-bench/raw/refs/heads/main/charts/benchmark.png)](https://github.com/opendataloader-project/opendataloader-bench)
 
 [![Quality Breakdown](https://github.com/opendataloader-project/opendataloader-bench/raw/refs/heads/main/charts/benchmark_quality.png)](https://github.com/opendataloader-project/opendataloader-bench)
 
-## Which Mode Should I Use?
+## 我应该用那个模式？
 
-| 你的文档 | 模式 | 安装 | Server Command | Client Command |
+| 你的文档 | 模式 | 安装 | 服务器命令 | 客户端命令 |
 |---------------|------|---------|----------------|----------------|
-| 标准数字 PDF | Fast（默认） | `pip install opendataloader-pdf` | None needed | `opendataloader-pdf file1.pdf file2.pdf folder/` |
+| 标准数字 PDF | Fast（默认） | `pip install opendataloader-pdf` | 不需要 | `opendataloader-pdf file1.pdf file2.pdf folder/` |
 | 复杂或嵌套表格 | **Hybrid** | `pip install "opendataloader-pdf[hybrid]"` | `opendataloader-pdf-hybrid --port 5002` | `opendataloader-pdf --hybrid docling-fast file1.pdf file2.pdf folder/` |
 | 扫描/图片型 PDF | Hybrid + OCR | `pip install "opendataloader-pdf[hybrid]"` | `opendataloader-pdf-hybrid --port 5002 --force-ocr` | `opendataloader-pdf --hybrid docling-fast file1.pdf file2.pdf folder/` |
 | 非英语扫描 PDF | Hybrid + OCR | `pip install "opendataloader-pdf[hybrid]"` | `opendataloader-pdf-hybrid --port 5002 --force-ocr --ocr-lang "ko,en"` | `opendataloader-pdf --hybrid docling-fast file1.pdf file2.pdf folder/` |
@@ -137,7 +137,7 @@ opendataloader_pdf.convert(
 | 需要描述的图表 | Hybrid + picture | `pip install "opendataloader-pdf[hybrid]"` | `opendataloader-pdf-hybrid --enrich-picture-description` | `opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf folder/` |
 | 需要无障碍处理的未加标签 PDF | Auto-tagging → Tagged PDF | `pip install opendataloader-pdf` | None needed | `opendataloader-pdf --format tagged-pdf file1.pdf file2.pdf folder/` |
 
-## Quick Start
+## 快速开始
 
 ### Python
 
@@ -182,9 +182,9 @@ await convert(['file1.pdf', 'file2.pdf', 'folder/'], {
 
 [Python Quick Start](https://opendataloader.org/docs/quick-start-python) | [Node.js Quick Start](https://opendataloader.org/docs/quick-start-nodejs) | [Java Quick Start](https://opendataloader.org/docs/quick-start-java)
 
-## Hybrid Mode: #1 Accuracy for Complex PDFs
+## Hybrid Mode: 处理复杂 PDF 时拥有一流的准确性
 
-Hybrid mode 将快速本地 Java 处理与 AI backends 结合。简单页面保持本地处理（0.02s）；复杂页面路由到 AI，以获得 90%+ 的表格准确率。
+Hybrid mode 将快速本地 Java 处理与 AI 后端结合。简单页面保持本地处理（0.02s）；复杂页面路由给 AI，以获得 90% 以上的表格准确率。
 
 ```bash
 pip install -U "opendataloader-pdf[hybrid]"
@@ -206,7 +206,7 @@ opendataloader-pdf --hybrid docling-fast file1.pdf file2.pdf folder/
 **Python:**
 
 ```python
-# Batch all files in one call — each convert() spawns a JVM process, so repeated calls are slow
+# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -214,7 +214,7 @@ opendataloader_pdf.convert(
 )
 ```
 
-### OCR for Scanned PDFs
+### 为扫描版 PDF 提供的 OCR
 
 对于没有可选中文本的图片型 PDF，使用 `--force-ocr` 启动 backend：
 
@@ -230,19 +230,19 @@ opendataloader-pdf-hybrid --port 5002 --force-ocr --ocr-lang "ko,en"
 
 支持语言：`en`、`ko`、`ja`、`ch_sim`、`ch_tra`、`de`、`fr`、`ar` 等。
 
-### Formula Extraction (LaTeX)
+### 公式提取(LaTeX)
 
-从科研 PDF 中以 LaTeX 形式抽取数学公式：
+从科研 PDF 中以 LaTeX 形式提取数学公式：
 
 ```bash
-# Server: enable formula enrichment
+# 服务端：激活公式增强识别
 opendataloader-pdf-hybrid --enrich-formula
 
-# Batch all files in one call — each invocation spawns a JVM process, so repeated calls are slow
+# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf folder/
 ```
 
-JSON 输出：
+使用 JSON 输出：
 ```json
 {
   "type": "formula",
@@ -254,19 +254,19 @@ JSON 输出：
 
 > **注意**：Formula 和 picture description enrichment 需要在 client 端使用 `--hybrid-mode full`。
 
-### Chart & Image Description
+### 图表和图片描述
 
-为图表和图片生成 AI 描述，适用于 RAG 搜索和无障碍 alt text：
+为图表和图片生成 AI 描述，适用于 RAG 搜索和无障碍替代文本：
 
 ```bash
-# Server
+# 服务端
 opendataloader-pdf-hybrid --enrich-picture-description
 
-# Batch all files in one call — each invocation spawns a JVM process, so repeated calls are slow
+# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf folder/
 ```
 
-JSON 输出：
+使用 JSON 输出：
 ```json
 {
   "type": "picture",
@@ -278,25 +278,25 @@ JSON 输出：
 
 > 使用轻量视觉模型 SmolVLM（256M）。可通过 `--picture-description-prompt` 支持自定义提示词。
 
-### Hancom Data Loader Integration — Coming Soon
+### 对接 Hancom 数据加载器的集成 — 即将发布
 
-通过 [Hancom Data Loader](https://sdk.hancom.com/en/services/1?utm_source=github&utm_medium=readme&utm_campaign=opendataloader-pdf) 提供企业级 AI 文档分析：基于你的领域文档训练的客户定制模型。支持 30+ 元素类型（表格、图表、公式、标题说明、脚注等）、基于 VLM 的图片/图表理解、复杂表格抽取（合并单元格、嵌套表格）、具备 SLA 的扫描文档 OCR，以及原生 HWP/HWPX 支持。支持 PDF、DOCX、XLSX、PPTX、HWP、PNG、JPG。[在线 demo](https://livedemo.sdk.hancom.com/en/dataloader?utm_source=github&utm_medium=readme&utm_campaign=opendataloader-pdf)
+通过 [Hancom Data Loader](https://sdk.hancom.com/en/services/1?utm_source=github&utm_medium=readme&utm_campaign=opendataloader-pdf) 提供企业级 AI 文档分析：基于你的领域文档训练的客户定制模型。支持 30 种以上的元素类型（表格、图表、公式、标题说明、脚注等）、基于 VLM 的图片/图表理解、复杂表格提取（合并单元格、嵌套表格）、受 SLA 保障的扫描文档 OCR，以及原生 HWP/HWPX 支持。支持 PDF、DOCX、XLSX、PPTX、HWP、PNG、JPG。[在线 demo](https://livedemo.sdk.hancom.com/en/dataloader?utm_source=github&utm_medium=readme&utm_campaign=opendataloader-pdf)
 
 [Hybrid Mode Guide](https://opendataloader.org/docs/hybrid-mode)
 
-## Output Formats
+## 输出格式
 
 | Format | 使用场景 |
 |--------|----------|
-| **JSON** | 带 bounding boxes 和语义类型的结构化数据 |
-| **Markdown** | 用于 LLM context 和 RAG chunks 的清洁文本 |
+| **JSON** | 带边界框和语义类型的结构化数据 |
+| **Markdown** | 用于 LLM context 和 RAG chunks 的干净文本 |
 | **HTML** | 带样式的 Web 展示 |
 | **Annotated PDF** | 可视化调试，查看检测出的结构（[sample](https://opendataloader.org/demo/samples/01030000000000)） |
-| **Text** | 纯文本抽取 |
+| **Text** | 纯文本提取 |
 
 组合格式：`format="json,markdown"`
 
-### JSON Output Example
+### JSON 输出示例
 
 ```json
 {
@@ -313,18 +313,18 @@ JSON 输出：
 }
 ```
 
-| Field | Description |
+| 字段 | 说明 |
 |-------|-------------|
 | `type` | 元素类型：heading、paragraph、table、list、image、caption、formula |
 | `id` | 用于交叉引用的唯一标识符 |
 | `page number` | 从 1 开始的页面引用 |
 | `bounding box` | PDF points 中的 `[left, bottom, right, top]`（72pt = 1 inch） |
-| `heading level` | 标题深度（1+） |
-| `content` | 抽取出的文本 |
+| `heading level` | 标题层级（1+） |
+| `content` | 提取出的文本 |
 
-[Full JSON Schema](https://opendataloader.org/docs/reference/json-schema)
+[完整的 JSON 数据规范](https://opendataloader.org/docs/reference/json-schema)
 
-## Advanced Features
+## 进阶功能  🔥🔥🔥🔥
 
 ### Tagged PDF Support
 
