@@ -386,9 +386,9 @@ opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
     format="json,markdown,pdf",
-    image_output="embedded",        # "off", "embedded" (Base64), or "external" (default)
-    image_format="jpeg",            # "png" or "jpeg"
-    use_struct_tree=True,           # Use native PDF structure
+    image_output="embedded",        # "off"、"embedded"（Base64）或 "external"（默认）
+    image_format="jpeg",            # "png" 或 "jpeg"
+    use_struct_tree=True,           # 使用原生 PDF 结构
 )
 ```
 
@@ -454,14 +454,14 @@ opendataloader-pdf --format tagged-pdf file1.pdf file2.pdf folder/
 现有 PDF（未加标签）
     │
     ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐    ┌──────────────────┐
-│  1. 检测       │───>│  2. 自动加标签    │───>│  3. 导出       │───>│  4. 工作站       │
-│  (检查标签)   │    │  (→ 带标签 PDF)  │    │  (PDF/UA)     │    │  (可视化编辑器) │
-└─────────────────┘    └──────────────────┘    └─────────────────┘    └──────────────────┘
-        │                       │                       │                      │
-        ▼                       ▼                       ▼                      ▼
-  使用结构树     format="tagged-pdf"        PDF/UA 导出       无障碍工作站
-  (现在可用)      (可用，Apache 2.0)    (企业版)        (企业版)
+┌────────────────────┐    ┌────────────────────┐    ┌────────────────────┐    ┌────────────────────┐
+│  1. 检测           │───>│  2. 自动加标签     │───>│  3. 导出           │───>│  4. 工作站         │
+│  （检查标签）      │    │  （→ 带标签 PDF）  │    │  （PDF/UA）        │    │  （可视化编辑器）  │
+└────────────────────┘    └────────────────────┘    └────────────────────┘    └────────────────────┘
+          │                         │                         │                         │
+          ▼                         ▼                         ▼                         ▼
+    使用结构树             format="tagged-pdf"          PDF/UA 导出              无障碍工作站
+    （现在可用）           （可用，Apache 2.0）          （企业版）               （企业版）
 ```
 
 [PDF 无障碍处理指南](https://opendataloader.org/docs/accessibility-compliance)
