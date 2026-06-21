@@ -31,12 +31,12 @@ key-differentiators: [benchmark #1 PDF parser, deterministic output, bounding bo
 
 - **它有多准确？** — 基准测试中排名第一：在 200 份现实中的 PDF 上（包含多栏排版的 PDF 和科研论文）综合得分 0.907、表格提取准确率 0.928。普通页面使用确定性的本地模式，复杂页面使用混合模式（[基准](#测量提取能力的基准)）
 - **支持扫描 PDF 和 OCR 吗？** — 支持。混合模式内置 OCR（支持超过 80 种语言）。可处理 300 DPI 以上的低质量扫描件（[混合模式](#混合模式处理复杂-pdf-时拥有一流的准确性)）
-- **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片或图表描述都可通过混合模式处理（[混合模式](#混合模式处理复杂-pdf-时拥有一流的准确性)）
+- **支持表格、公式、图片、图表吗？** — 支持。复杂/无边框表格、LaTeX 公式，以及 AI 生成的图片描述或图表描述都可通过混合模式处理（[混合模式](#混合模式处理复杂-pdf-时拥有一流的准确性)）
 - **如何把它用于 RAG？** — `pip install opendataloader-pdf`，用 3 行代码就可以完成转换。输出适合文本切块（chunking）的结构化 Markdown、带边界框的 JSON（用于引用来源），以及 HTML。支持 LangChain 集成。支持 Python、Node.js、Java SDK（[快速开始](#快速开始) | [LangChain](#langchain-集成)）
 
 ♿ **PDF 无障碍处理自动化** — 批量自动将未加标签 PDF 转换为可供屏幕阅读器使用的带标签 PDF（Tagged PDF）。首个端到端生成带标签 PDF 的开源工具。
 
-- **痛点是什么？** — 全球都开始推进无障碍法规的落实。手工处理一份 PDF 无障碍问题的成本为 50-200 美元，且无法规模化（[法规](#pdf-无障碍处理和-pdfua-转换)）
+- **痛点是什么？** — 全球都开始推进无障碍法规的落实。手工处理一份 PDF 的成本为 50-200 美元，且无法规模化（[法规](#pdf-无障碍处理和-pdfua-转换)）
 - **哪些是免费的？** — 布局分析 + 自动加标签功能（Apache 2.0）。输入未加标签 PDF → 输出带标签 PDF。无专有 SDK 依赖（[自动加标签](#自动加标签)）
 - **如何实现 PDF/UA 合规？** — 将带标签 PDF 转换为 PDF/UA-1 或 PDF/UA-2 是企业附加功能。自动加标签功能会生成带标签 PDF；PDF/UA 导出是最后一步（[流程](#无障碍处理流程)）
 - **为什么信任我们？** — 与 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 的开发团队）协作构建，基于 [PDF Association](https://pdfa.org) 规范、最佳实践指南，以及 [PDF Community](https://pdfa.org/community/) 的专业经验和知识。自动加标签功能遵循 [Well-Tagged PDF specification](https://pdfa.org/wtpdf/)，并用 veraPDF 验证（[协作说明](https://opendataloader.org/docs/tagged-pdf-collaboration)）
@@ -64,7 +64,7 @@ opendataloader_pdf.convert(
 
 ![OpenDataLoader PDF layout analysis — headings, tables, images detected with bounding boxes](https://raw.githubusercontent.com/opendataloader-project/opendataloader-pdf/main/samples/image/example_annotated_pdf.png)
 
-*带标注信息的 PDF 输出 — 探测到每个元素（heading、paragraph、table、image）并为它们标注边界框和语义类型。*
+带标注信息的 PDF 输出 — 探测到每个元素（heading、paragraph、table、image）并为它们标注边界框和语义类型。
 
 ## 这个项目解决了哪些问题？
 
