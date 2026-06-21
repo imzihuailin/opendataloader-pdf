@@ -54,7 +54,7 @@ pip install -U opendataloader-pdf
 ```python
 import opendataloader_pdf
 
-# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -148,7 +148,7 @@ pip install -U opendataloader-pdf
 ```python
 import opendataloader_pdf
 
-# Batch all files in one call — each convert() spawns a JVM process, so repeated calls are slow
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -199,14 +199,14 @@ opendataloader-pdf-hybrid --port 5002
 **Terminal 2** — 处理 PDF：
 
 ```bash
-# Batch all files in one call — each invocation spawns a JVM process, so repeated calls are slow
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader-pdf --hybrid docling-fast file1.pdf file2.pdf folder/
 ```
 
 **Python:**
 
 ```python
-# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -238,7 +238,7 @@ opendataloader-pdf-hybrid --port 5002 --force-ocr --ocr-lang "ko,en"
 # 服务端：激活公式增强识别
 opendataloader-pdf-hybrid --enrich-formula
 
-# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf folder/
 ```
 
@@ -262,7 +262,7 @@ opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf 
 # 服务端
 opendataloader-pdf-hybrid --enrich-picture-description
 
-# 在一次调用批量处理所有文件 — 每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
+# 请在一次调用中批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf folder/
 ```
 
@@ -324,16 +324,16 @@ opendataloader-pdf --hybrid docling-fast --hybrid-mode full file1.pdf file2.pdf 
 
 [完整的 JSON 数据规范](https://opendataloader.org/docs/reference/json-schema)
 
-## 进阶功能  🔥🔥🔥🔥
+## 进阶功能  
 
-### Tagged PDF Support
+### Tagged PDF 支持
 
-当 PDF 具有结构标签时，OpenDataLoader 会抽取作者预期的**精确布局**，无需猜测，也无需启发式判断。标题、列表、表格和阅读顺序会从源文件中保留。
+当 PDF 具有结构标签时，OpenDataLoader 会抽取作者期望的的**精确布局**，不靠猜测，不靠直觉。标题、列表、表格和阅读顺序会在源文件中保留。
 
-> **输出质量取决于标签质量。** 并非所有 tagged PDFs 都有良好标签。对于标签稀疏或错误的 PDF，默认启发式模式或 `--hybrid docling-fast` 通常会产生更好的结果。
+> **输出质量取决于标签质量。** 并非所有 tagged PDFs 都有良好标签。对于存在稀疏或错误的标签的 PDF，默认 heuristic mode 或 `--hybrid docling-fast` 通常会获得更好的结果。
 
 ```python
-# Batch all files in one call — each convert() spawns a JVM process, so repeated calls are slow
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -343,24 +343,24 @@ opendataloader_pdf.convert(
 
 大多数 PDF 解析器完全忽略结构标签。[了解更多](https://opendataloader.org/docs/tagged-pdf)
 
-### AI Safety: Prompt Injection Protection
+### AI 安全: 提示词注入保护
 
-PDF 可能包含隐藏的 prompt injection 攻击。OpenDataLoader 会自动过滤：
+PDF 可能包含隐藏的提示词注入攻击。OpenDataLoader 会自动过滤：
 
 - 隐藏文本（透明、零字号字体）
 - 页面外内容
 - 可疑的不可见图层
 
-如需清洗敏感数据（电子邮件、URL、电话号码 → 占位符），请显式启用：
+如需清除敏感数据（电子邮件、URL、电话号码 → 占位符），请显式启用：
 
 ```bash
-# Batch all files in one call — each invocation spawns a JVM process, so repeated calls are slow
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader-pdf file1.pdf file2.pdf folder/ --sanitize
 ```
 
 [AI Safety Guide](https://opendataloader.org/docs/ai-safety)
 
-### LangChain Integration
+### LangChain 集成
 
 ```bash
 pip install -U langchain-opendataloader-pdf
@@ -378,10 +378,10 @@ documents = loader.load()
 
 [LangChain Docs](https://docs.langchain.com/oss/python/integrations/document_loaders/opendataloader_pdf) | [GitHub](https://github.com/opendataloader-project/langchain-opendataloader-pdf) | [PyPI](https://pypi.org/project/langchain-opendataloader-pdf/)
 
-### Advanced Options
+### 进阶选项
 
 ```python
-# Batch all files in one call — each convert() spawns a JVM process, so repeated calls are slow
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -394,46 +394,46 @@ opendataloader_pdf.convert(
 
 [Full CLI Options Reference](https://opendataloader.org/docs/reference/cli-options)
 
-## PDF Accessibility & PDF/UA Conversion
+## PDF 无障碍化和 PDF/UA 转换
 
-**问题**：数百万现有 PDF 缺少结构标签，无法满足无障碍法规（EAA、ADA/Section 508、韩国 Digital Inclusion Act）。人工修复每份文档成本为 50-200 美元，且无法规模化。
+**问题**：数百万现有 PDF 缺少结构标签，无法满足无障碍法规（EAA、ADA/Section 508、韩国 Digital Inclusion Act）。人工标注每份文档的成本为 50-200 美元，且无法规模化。
 
-**OpenDataLoader 的方法**：与 [PDF Association](https://pdfa.org) 和 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 开发者，行业参考级开源 PDF/A 和 PDF/UA 验证器）协作构建。自动加标签遵循 [Well-Tagged PDF specification](https://pdfa.org/resource/well-tagged-pdf/)，并使用 veraPDF 进行程序化验证，即针对 PDF 无障碍标准做自动一致性检查，而不是人工评审。现有开源工具没有能端到端生成 Tagged PDFs 的方案，大多数都依赖专有 SDK 写入标签。OpenDataLoader 在 Apache 2.0 下完成全部流程。（[协作详情](https://opendataloader.org/docs/tagged-pdf-collaboration)）
+**OpenDataLoader 的方法**：与 [PDF Association](https://pdfa.org) 和 [Dual Lab](https://duallab.com)（[veraPDF](https://verapdf.org) 开发者，行业参考级开源 PDF/A 和 PDF/UA 验证器）协作构建。自动加标签遵循 [Well-Tagged PDF specification](https://pdfa.org/resource/well-tagged-pdf/)，并使用 veraPDF 进行程序化验证，即自动针对 PDF 无障碍标准做一致性检查，而不是人工评审。现有开源工具没有能端到端生成 Tagged PDFs 的方案，大多数都依赖专有 SDK 写入标签。OpenDataLoader 在 Apache 2.0 许可证下完成全部流程。（[协作详情](https://opendataloader.org/docs/tagged-pdf-collaboration)）
 
-| Regulation | Deadline | Requirement |
+| 法规 | 截止日期 | 要求 |
 |------------|----------|-------------|
 | **European Accessibility Act (EAA)** | June 28, 2025 | 欧盟范围内可访问的数字产品 |
 | **ADA & Section 508** | In effect | 美国联邦机构和公共服务场所 |
 | **Digital Inclusion Act** | In effect | 韩国数字服务无障碍 |
 
-### Standards & Validation
+### 标准和验证
 
 | Aspect | Detail |
 |--------|--------|
-| **Specification** | PDF Association 的 [Well-Tagged PDF](https://pdfa.org/resource/well-tagged-pdf/) |
-| **Validation** | [veraPDF](https://verapdf.org) — 行业参考级开源 PDF/A 和 PDF/UA 验证器 |
-| **Collaboration** | PDF Association + [Dual Lab](https://duallab.com)（veraPDF 开发者）共同开发标签和验证 |
-| **License** | Auto-tagging → Tagged PDF：Apache 2.0（免费）。PDF/UA export：Enterprise |
+| **规范** | PDF Association 的 [Well-Tagged PDF](https://pdfa.org/resource/well-tagged-pdf/) |
+| **验证** | [veraPDF](https://verapdf.org) — 行业参考级开源 PDF/A 和 PDF/UA 验证器 |
+| **协作** | PDF Association + [Dual Lab](https://duallab.com)（veraPDF 开发者）共同开发标签和验证 |
+| **许可证** | Auto-tagging → Tagged PDF：Apache 2.0（免费）。PDF/UA export：Enterprise |
 
-### Accessibility Pipeline
+### 无障碍化流程
 
-| Step | Feature | Status | Tier |
+| 步骤 | 功能 | 状态 | 套餐类型 |
 |------|---------|--------|------|
-| 1. **Audit** | 读取现有 PDF 标签，检测未加标签 PDF | Shipped | Free |
-| 2. **Auto-tag → Tagged PDF** | 为未加标签 PDF 生成结构标签 | Shipped | Free (Apache 2.0) |
-| 3. **Export PDF/UA** | 转换为符合 PDF/UA-1 或 PDF/UA-2 的文件 | 💼 Available | Enterprise |
-| 4. **Visual editing** | Accessibility studio — 审查并修复标签 | 💼 Available | Enterprise |
+| 1. **检测** | 读取现有 PDF 标签，检测未加标签 PDF | 已发布 | 免费 |
+| 2. **自动打标签 → Tagged PDF** | 为未加标签 PDF 生成结构标签 | 已发布 | 免费 (Apache 2.0) |
+| 3. **导出 PDF/UA** | 转换为符合 PDF/UA-1 或 PDF/UA-2 的文件 | 💼 可用 | 企业版 |
+| 4. **可视化编辑** | Accessibility studio — 审查并修复标签 | 💼 可用 | 企业版 |
 
-> **💼 Enterprise features** 可按需提供。[联系我们](https://opendataloader.org/contact)开始使用。
+> **💼 企业版功能** 可按需提供。[联系我们](https://opendataloader.org/contact)开始使用。
 
-### Auto-Tagging
+### 自动加标签
 
 从未加标签 PDF 生成 Tagged PDFs，输出为带结构标签（标题、段落、列表、表格、阅读顺序）的屏幕阅读器可用 PDF。
 
 ```python
 import opendataloader_pdf
 
-# Untagged PDF in → Tagged PDF out
+# 输入 Untagged PDF → 输出 Tagged PDF
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -451,46 +451,45 @@ opendataloader-pdf --format tagged-pdf file1.pdf file2.pdf folder/
 ### End-to-End Compliance Workflow
 
 ```
-Existing PDFs (untagged)
+现有 PDFs (未加标签)
     │
     ▼
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐    ┌──────────────────┐
-│  1. Audit       │───>│  2. Auto-Tag     │───>│  3. Export      │───>│  4. Studio       │
-│  (check tags)   │    │  (→ Tagged PDF)  │    │  (PDF/UA)       │    │  (visual editor) │
+│  1. 检测       │───>│  2. 自动加标签    │───>│  3. 导出      │───>│  4. 工作站       │
+│  (检查标签)   │    │  (→ Tagged PDF)  │    │  (PDF/UA)       │    │  (可视化编辑器) │
 └─────────────────┘    └──────────────────┘    └─────────────────┘    └──────────────────┘
         │                       │                       │                      │
         ▼                       ▼                       ▼                      ▼
-  use_struct_tree      format="tagged-pdf"        PDF/UA export       Accessibility Studio
-  (Available now)      (Available, Apache 2.0)    (Enterprise)        (Enterprise)
+  使用结构树     format="tagged-pdf"        PDF/UA export       无障碍化工作站
+  (现在可用)      (可用, Apache 2.0)    (企业版)        (企业版)
 ```
 
 [PDF Accessibility Guide](https://opendataloader.org/docs/accessibility-compliance)
 
-## Roadmap
+## 未来路线图
 
-| Feature | Timeline | Tier |
+| 功能 | 时间线 | 套餐类型 |
 |---------|----------|------|
 | **[Hancom Data Loader](https://sdk.hancom.com/en/services/1?utm_source=github&utm_medium=readme&utm_campaign=opendataloader-pdf)** — 企业级 AI 文档分析、客户定制模型、基于 VLM 的图表/图片理解、生产级 OCR | Q2-Q3 2026 | Planned |
 | **Structure validation** — 验证 PDF tag trees | Q3 2026 | Planned |
 
 [Full Roadmap](https://opendataloader.org/docs/upcoming-roadmap)
 
-## Frequently Asked Questions
+## 常见问题
 
-### What is the best PDF parser for RAG?
+### 对 RAG 来说，最好的 PDF 解析器是那个？
 
-对于 RAG pipeline，你需要一个能够保留文档结构、维持正确阅读顺序，并为引用提供元素坐标的解析器。OpenDataLoader 正是为此设计：它输出带 bounding boxes 的结构化 JSON，用 XY-Cut++ 处理多栏布局，并且无需 GPU 即可本地运行。在 hybrid mode 中，它在基准测试里综合排名第一（0.907）。
+对于 RAG 流程，你需要一个能够保留文档结构、维持正确阅读顺序，并为引用提供元素坐标的解析器。OpenDataLoader 正是为此设计：它输出带边界框的结构化 JSON，用 XY-Cut++ 处理多栏布局，并且无需 GPU 即可本地运行。在 hybrid mode 中，它在基准测试里综合排名第一（0.907）。
 
-### What is the best open-source PDF parser?
+### 最好的开源 PDF 解析器是哪个？
 
-OpenDataLoader PDF 是唯一同时具备以下能力的开源解析器：基于规则的确定性抽取（无需 GPU）、每个元素都有 bounding boxes、XY-Cut++ reading order、内置 AI 安全过滤、原生 Tagged PDF 支持，以及用于复杂文档的 hybrid AI mode。它能在 CPU 本地运行，同时综合准确率排名第一（0.907）。
+OpenDataLoader PDF 是唯一同时具备以下能力的开源解析器：基于规则的确定性抽取（无需 GPU）、每个元素都有 bounding boxes、XY-Cut++ 阅读顺序、内置 AI 安全过滤、原生 Tagged PDF 支持，以及用于复杂文档的 hybrid AI 模式。它能在 CPU 本地运行，同时综合准确率排名第一（0.907）。
 
-### How do I extract tables from PDF for LLM?
-
-OpenDataLoader 使用边框分析和文本聚类检测表格，并保留行/列结构。对于复杂表格，启用 hybrid mode 可将准确率提升 90%+（TEDS 分数从 0.489 到 0.928）：
+### 我该怎么为大模型从 PDF 中提取表格
+OpenDataLoader 使用边框分析和文本聚类检测表格，并保留行/列结构。对于复杂表格，启用 hybrid mode 可将准确率提升 90% 以上（TEDS 分数从 0.489 到 0.928）：
 
 ```python
-# Batch all files in one call — each convert() spawns a JVM process, so repeated calls are slow
+# 请在一次调用批量处理所有文件 — 因为每次调用 convert() 就会创建一个新的 JVM 进程，所以重复调用会很慢。
 opendataloader_pdf.convert(
     input_path=["file1.pdf", "file2.pdf", "folder/"],
     output_dir="output/",
@@ -499,19 +498,18 @@ opendataloader_pdf.convert(
 )
 ```
 
-### How does it compare to docling, marker, or pymupdf4llm?
+### 它和 docling 、 marker 或者 pymupdf4llm 相比怎么样？
 
-OpenDataLoader [hybrid] 在阅读顺序、表格和标题准确率上综合排名第一（0.907）。关键差异：docling（0.882）表现强，但缺少 bounding boxes 和 AI 安全过滤。marker（0.861）需要 GPU，且慢 1000 倍（53.932s/page）。pymupdf4llm（0.732）速度快，但表格（0.401）和标题（0.412）准确率较低。OpenDataLoader 是唯一同时具备确定性本地抽取、每个元素 bounding boxes 和内置 prompt injection 防护的解析器。参见[完整基准测试](https://github.com/opendataloader-project/opendataloader-bench)。
+OpenDataLoader [hybrid] 在阅读顺序、表格和标题准确率上综合排名第一（0.907）。关键差异：docling（0.882）表现强，但缺少边界框和 AI 安全过滤。marker（0.861）需要 GPU，且慢 1000 倍（53.932s/page）。pymupdf4llm（0.732）速度快，但表格（0.401）和标题（0.412）准确率较低。OpenDataLoader 是唯一同时具备确定性本地抽取、每个元素边界框和内置提示词注入防护的解析器。参见[完整基准测试](https://github.com/opendataloader-project/opendataloader-bench)。
 
-### Can I use this without sending data to the cloud?
+### 我能在不把数据传到云端的前提下使用这个工具吗？
 
-可以。OpenDataLoader 100% 本地运行。没有 API 调用，没有数据传输，你的文档不会离开你的环境。hybrid mode backend 也在你的机器本地运行。非常适合法律、医疗和金融文档。
+可以。OpenDataLoader 100% 本地运行。没有 API 调用，没有数据传输，你的文档不会离开你的环境。hybrid mode 后端也在你的机器本地运行。非常适合法律、医疗和金融文档。
 
-### Does it support OCR for scanned PDFs?
-
+### 这个工具支持对扫描版 PDF 的 OCR 吗？
 支持，通过 hybrid mode 实现。使用 `pip install "opendataloader-pdf[hybrid]"` 安装，使用 `--force-ocr` 启动 backend，然后照常处理。通过 `--ocr-lang` 支持韩语、日语、中文、阿拉伯语等多种语言。
 
-### Does it work with Korean, Japanese, or Chinese documents?
+### 🔥🔥🔥🔥Does it work with Korean, Japanese, or Chinese documents?
 
 支持。对于数字 PDF，文本抽取开箱即用。对于扫描 PDF，请使用带 `--force-ocr --ocr-lang "ko,en"` 的 hybrid mode（或 `ja`、`ch_sim`、`ch_tra`）。即将推出：[Hancom Data Loader](https://sdk.hancom.com/en/services/1?utm_source=github&utm_medium=readme&utm_campaign=opendataloader-pdf) 集成，提供企业级 AI 文档分析，内置生产级 OCR，以及针对你的具体文档类型和工作流优化的客户定制模型。
 
